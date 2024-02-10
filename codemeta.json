@@ -1,0 +1,40 @@
+{
+    "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+    "@type": "SoftwareSourceCode",
+    "license": "https://spdx.org/licenses/Apache-2.0",
+    "codeRepository": "git+https://github.com/mciccale/Text-Extraction-Project",
+    "dateCreated": "2024-02-10",
+    "datePublished": "2024-02-14",
+    "dateModified": "2024-02-14",
+    "name": "Text-Extraction-Project",
+    "version": "1.0.0",
+    "identifier": "TODO",
+    "description": "This project analyses research papers and extracts/plots information about them.",
+    "applicationCategory": "Research",
+    "developmentStatus": "active",
+    "keywords": [
+        "text",
+        "research",
+        "analysis",
+        "python",
+        "grobid"
+    ],
+    "programmingLanguage": [
+        "Python 3"
+    ],
+    "operatingSystem": [
+        "Linux"
+    ],
+    "softwareRequirements": [
+        "TODO"
+    ],
+    "author": [
+        {
+            "@type": "Person",
+            "@id": "https://orcid.org/0009-0000-8821-0587",
+            "givenName": "Marco",
+            "familyName": "Ciccalè",
+            "email": "marcociccalebaztan@gmail.com"
+        }
+    ]
+}
