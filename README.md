@@ -1,4 +1,4 @@
-# Text-Extraction-Project
+# ScholarVista
 
 ## Table of Contents:
 
@@ -11,11 +11,11 @@
 
 ## Description
 
-This project analyses research papers and extracts/plots information about them. It uses [Grobid]() to extract all the content of the research papers. Then all this data is plotted and displayed using **Python**.
+**ScholarVista** is a tool that analyzes research papers and extracts and plots information from them. It utilizes [Grobid](https://github.com/kermitt2/grobid/), a library for extracting content from research papers, to extract all the relevant data. The extracted data is then plotted and displayed using Python.
 
 ## Requirements
 
-**Python 3**
+TODO
 
 ## Installation Instructions
 
@@ -27,8 +27,8 @@ TODO
 
 ## Running Example
 
-TODO
+See `example.py`
 
 ## Where to Get Help
 
-See `CONTRIBUTING.md`
+For further assistance or to contribute to the project, please refer to the `CONTRIBUTING.md` file.
