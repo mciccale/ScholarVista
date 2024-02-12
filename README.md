@@ -20,7 +20,7 @@ TODO
 
 ## Execution Instructions
 
-TODO
+Make sure the **[Grobid](https://github.com/kermitt2/grobid)** service is up and running.
 
 ## Running Example
 

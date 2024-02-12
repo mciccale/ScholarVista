@@ -18,14 +18,21 @@ from tempfile import TemporaryDirectory
               type=click.Path(),
               help='Directory to save results. Defaults to current directory if --save is provided.')
 def main(pdf_dir: str, save: bool, output_dir: str | None):
-    tei_xml_dir = TemporaryDirectory().name
+    # Create a temporary directory to deposit the TEI XML intermediate files
+    tei_xml_dir = TemporaryDirectory()
 
     print(f'> Processing all PDFs in {pdf_dir}...')
 
-    sv.PDFParser().process_pdfs(pdf_dir=pdf_dir, output_dir=tei_xml_dir)
+    # Process the PDFs with PDFParser
+    sv.PDFParser().process_pdfs(pdf_dir=pdf_dir, output_dir=tei_xml_dir.name)
 
-    parsed_data = __parse_all_xmls(__get_tei_xml_files_from_dir(tei_xml_dir=tei_xml_dir))
+    # Parse all TEI XML files to get the relevant information
+    parsed_data = __parse_all_xmls(__get_tei_xml_files_from_dir(tei_xml_dir=tei_xml_dir.name))
 
+    # Cleanup the temporary directory where the TEI XML files reside as they are not more needed
+    tei_xml_dir.cleanup()
+
+    # Obtain the output_dir desired by the user
     if save and output_dir:
         if not os.path.exists(output_dir):
             click.echo(f"Output directory '{output_dir}' does not exist.")
@@ -33,7 +40,10 @@ def main(pdf_dir: str, save: bool, output_dir: str | None):
     elif save:
         output_dir = os.getcwd()
 
-    __generate_word_clouds(parsed_data, output_dir)
+    # Generate the keyword clouds
+    __generate_keyword_clouds(parsed_data, output_dir)
+
+    # Generate the figures histogram
     __generate_figures_histogram(parsed_data, output_dir)
 
 
@@ -61,9 +71,9 @@ def __parse_all_xmls(tei_xml_files: list[str]) -> dict[str, dict[str, str | int]
     return parsed_data
 
 
-def __generate_word_clouds(parsed_data: dict[str, dict[str, str | int]], output_dir: str | None) -> None:
+def __generate_keyword_clouds(parsed_data: dict[str, dict[str, str | int]], output_dir: str | None) -> None:
     """
-    Generates and displays a word cloud for each abstract in the parsed data.
+    Generates and displays a keyword cloud for each abstract in the parsed data.
     """
     print('> Generating Keyword Clouds...')
 
