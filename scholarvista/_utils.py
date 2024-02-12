@@ -6,7 +6,7 @@ from pathlib import Path
 This file contains utility functions that are used across the application.
 """
 
-logging.basicConfig(filename='logs/error.log', level=logging.ERROR)
+logging.basicConfig(level=logging.ERROR)
 
 
 def get_project_root() -> str:
