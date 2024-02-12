@@ -3,7 +3,6 @@
 import click
 import os
 import scholarvista as sv
-from scholarvista._utils import get_project_root
 
 
 @click.command()
@@ -36,7 +35,7 @@ def get_xml_files() -> list[str]:
     """
     Returns a list of the paths of all the TEI XML files in the xmls directory.
     """
-    xmls_dir = f'{get_project_root()}/xmls'
+    xmls_dir = '/path/to/xmls'
     return [f'{xmls_dir}/{file}' for file in os.listdir(xmls_dir) if file.endswith('.tei.xml')]
 
 
