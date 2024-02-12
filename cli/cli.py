@@ -3,6 +3,7 @@
 import click
 import os
 import scholarvista as sv
+from tempfile import TemporaryDirectory
 
 
 @click.command()
@@ -17,8 +18,13 @@ import scholarvista as sv
               type=click.Path(),
               help='Directory to save results. Defaults to current directory if --save is provided.')
 def main(pdf_dir: str, save: bool, output_dir: str | None):
-    # TODO: Call to Grobid Module
-    parsed_data = parse_all_xmls()
+    tei_xml_dir = TemporaryDirectory().name
+
+    print(f'> Processing all PDFs in {pdf_dir}...')
+
+    sv.PDFParser().process_pdfs(pdf_dir=pdf_dir, output_dir=tei_xml_dir)
+
+    parsed_data = __parse_all_xmls(__get_tei_xml_files_from_dir(tei_xml_dir=tei_xml_dir))
 
     if save and output_dir:
         if not os.path.exists(output_dir):
@@ -27,27 +33,25 @@ def main(pdf_dir: str, save: bool, output_dir: str | None):
     elif save:
         output_dir = os.getcwd()
 
-    generate_word_clouds(parsed_data, output_dir)
-    generate_figures_histogram(parsed_data, output_dir)
+    __generate_word_clouds(parsed_data, output_dir)
+    __generate_figures_histogram(parsed_data, output_dir)
 
 
-def get_xml_files() -> list[str]:
+def __get_tei_xml_files_from_dir(tei_xml_dir: str) -> list[str]:
     """
     Returns a list of the paths of all the TEI XML files in the xmls directory.
     """
-    xmls_dir = '/path/to/xmls'
-    return [f'{xmls_dir}/{file}' for file in os.listdir(xmls_dir) if file.endswith('.tei.xml')]
+    return [f'{tei_xml_dir}/{file}' for file in os.listdir(tei_xml_dir) if file.endswith('.tei.xml')]
 
 
-def parse_all_xmls() -> dict[str, dict[str, str | int]]:
+def __parse_all_xmls(tei_xml_files: list[str]) -> dict[str, dict[str, str | int]]:
     """
     Parses all the TEI XML files in the xmls directory and returns a dictionary containing the parsed data.
     """
-    xml_files = get_xml_files()
     parsed_data = {}
-    for xml_file in xml_files:
-        print(f'Parsing {xml_file}...')
-        parser = sv.TEIXMLParser(file_path=xml_file)
+    for tei_xml_file in tei_xml_files:
+        print(f' >Parsing TEI XML file {tei_xml_file}...')
+        parser = sv.TEIXMLParser(file_path=tei_xml_file)
 
         parsed_data[parser.get_title()] = {
             'abstract': parser.get_abstract(),
@@ -57,10 +61,12 @@ def parse_all_xmls() -> dict[str, dict[str, str | int]]:
     return parsed_data
 
 
-def generate_word_clouds(parsed_data: dict[str, dict[str, str | int]], output_dir: str | None) -> None:
+def __generate_word_clouds(parsed_data: dict[str, dict[str, str | int]], output_dir: str | None) -> None:
     """
     Generates and displays a word cloud for each abstract in the parsed data.
     """
+    print('> Generating Keyword Clouds...')
+
     for title, data in parsed_data.items():
         cloud = sv.KeywordCloud(text=str(data['abstract']), title=title).generate()
         if output_dir is None:
@@ -69,10 +75,12 @@ def generate_word_clouds(parsed_data: dict[str, dict[str, str | int]], output_di
             cloud.save_to_file(output_dir)
 
 
-def generate_figures_histogram(parsed_data: dict[str, dict[str, str | int]], output_dir: str | None) -> None:
+def __generate_figures_histogram(parsed_data: dict[str, dict[str, str | int]], output_dir: str | None) -> None:
     """
     Plots a histogram for the figures count of each paper in the parsed data.
     """
+    print('> Generating a Figures Histogram...')
+
     figures_counts = [data['figures_count']
                       for data in list(parsed_data.values())]
     histogram = sv.Plotter(title='Figures per Article',
