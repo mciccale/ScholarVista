@@ -1,16 +1,20 @@
-import logging
-from typing import Self
-import matplotlib.pyplot as plt
-from os import path
-
 """
 This module contains the Plotter class which is used to plot a histogram of the given data.
 """
+
+import logging
+from os import path
+from typing import Self
+import matplotlib.pyplot as plt
 
 logging.basicConfig(level=logging.ERROR)
 
 
 class Plotter:
+    """
+    This class is used to plot a histogram of the given data.
+    """
+
     def __init__(self, title, x_label, x_data, y_label, y_data) -> None:
         """
         Initializes the Plotter object with the given data.
@@ -37,11 +41,12 @@ class Plotter:
         """
         Displays a previously generated histogram.
         """
-        if self.figure_created:
+        try:
+            if not self.figure_created:
+                raise ValueError('The figure has not been generated yet.')
             plt.show()
-        else:
-            logging.error(f"Error displaying the figure: {self.title}")
-            raise ValueError('The figure has not been generated yet.')
+        except ValueError:
+            logging.error('Error displaying the figure: %s', self.title)
 
     def save_to_file(self, dir_path: str) -> None:
         """
@@ -52,5 +57,5 @@ class Plotter:
                 raise ValueError('The figure has not been generated yet.')
             plt.savefig(path.join(dir_path, f'{self.title}.png'))
             plt.close()
-        except Exception as e:
-            logging.error(f"Error saving the figure: {str(e)}")
+        except ValueError:
+            logging.error('Error saving the figure: %s', self.title)

@@ -1,8 +1,3 @@
-import logging
-import xml.etree.ElementTree as ET
-from .exceptions.tag_not_found_in_tei_xml import TagNotFoundInTeiXmlException
-from ._utils import get_links_from_text
-
 """
 This file contains the TeiXmlParser class, which is used to parse TEI XML files.
 
@@ -10,10 +5,20 @@ The TeiXmlParser class provides methods to extract information from TEI XML file
 such as the title, abstract, body text, figures count, and links.
 """
 
+import logging
+import xml.etree.ElementTree as ET
+from .exceptions.tag_not_found_in_tei_xml import TagNotFoundInTeiXmlException
+from ._utils import get_links_from_text
+
+
 logging.basicConfig(level=logging.ERROR)
 
 
 class TEIXMLParser:
+    """
+    The TEIXMLParser class is used to parse TEI XML files.
+    """
+
     def __init__(self, file_path: str) -> None:
         """
         Initializes the TEIXMLParser object with the given file path.
@@ -24,10 +29,10 @@ class TEIXMLParser:
             self.root = ET.parse(self.file_path).getroot()
             self.body = self.__find_element_by_tag('body')
         except FileNotFoundError as e:
-            logging.error(f'File not found: {file_path}')
+            logging.error('File not found: %s', file_path)
             raise e
         except ET.ParseError as e:
-            logging.error(f'Error parsing XML file: {file_path}')
+            logging.error('Error parsing XML file: %s', file_path)
             raise e
         except TagNotFoundInTeiXmlException as e:
             raise e
@@ -49,7 +54,7 @@ class TEIXMLParser:
             element = self.__find_element_by_tag('abstract')
             return str(element[0][0].text)
         except TagNotFoundInTeiXmlException as e:
-            logging.error(f'Tag \'abstract\' not found in: {self.file_path}')
+            logging.error("Tag 'abstract' not found in: %s", self.file_path)
             raise e
 
     def get_body(self) -> str:
@@ -96,7 +101,7 @@ class TEIXMLParser:
             element = self.__find_element_by_tag(tag)
             return str(element.text)
         except TagNotFoundInTeiXmlException as e:
-            logging.error(f'Tag \'{tag}\' not found in: {self.file_path}')
+            logging.error("Tag '%s' not found in: %s", tag, self.file_path)
             raise e
 
     def __find_element_by_tag(self, tag: str) -> ET.Element:
