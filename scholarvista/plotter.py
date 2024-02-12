@@ -7,7 +7,7 @@ from os import path
 This module contains the Plotter class which is used to plot a histogram of the given data.
 """
 
-logging.basicConfig(filename='logs/error.log', level=logging.ERROR)
+logging.basicConfig(level=logging.ERROR)
 
 
 class Plotter:
