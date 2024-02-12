@@ -1,7 +1,7 @@
 import logging
 import xml.etree.ElementTree as ET
-from exceptions.tag_not_found_in_tei_xml import TagNotFoundInTeiXmlException
-from utils import get_links_from_text
+from .exceptions.tag_not_found_in_tei_xml import TagNotFoundInTeiXmlException
+from ._utils import get_links_from_text
 
 """
 This file contains the TeiXmlParser class, which is used to parse TEI XML files.
@@ -10,13 +10,13 @@ The TeiXmlParser class provides methods to extract information from TEI XML file
 figures count, and links.
 """
 
-logging.basicConfig(filename='logs/error.log', level=logging.ERROR)
+logging.basicConfig(level=logging.ERROR)
 
 
-class TeiXmlParser:
+class TEIXMLParser:
     def __init__(self, file_path: str) -> None:
         """
-        Initializes the TeiXmlParser object with the given file path.
+        Initializes the TEIXMLParser object with the given file path.
         """
         try:
             self.file_path = file_path
@@ -46,8 +46,10 @@ class TeiXmlParser:
         Returns the text of the abstract of the document.
         """
         try:
-            return self.__get_text_by_tag('abstract')
+            element = self.__find_element_by_tag('abstract')
+            return str(element[0][0].text)
         except TagNotFoundInTeiXmlException as e:
+            logging.error(f'Tag \'abstract\' not found in: {self.file_path}')
             raise e
 
     def get_body(self) -> str:

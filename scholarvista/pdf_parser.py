@@ -1,9 +1,9 @@
 """
-This file contains the Grobid class, which is used to process PDFs using Grobid.
+This file contains the PDFParser class, which is used to process PDFs using Grobid.
 """
 
 
-class Grobid:
+class PDFParser:
     def __init__(self):
         raise NotImplementedError("This class should not be instantiated")
 

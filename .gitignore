@@ -2,7 +2,7 @@ __pycache__/
 
 pdfs/
 xmls/
-logs/
+scholarvista/logs/
 
 *.env
 

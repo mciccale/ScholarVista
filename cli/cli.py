@@ -1,22 +1,44 @@
+#!/usr/bin/env python3
+
+import click
 import os
 import scholarvista as sv
+from scholarvista._utils import get_project_root
 
-"""
-This script demonstrates how to use the TeiXmlParser class to parse TEI XML files, the KeywordCloud class to generate and display word clouds from the abstracts of the parsed documents
-and the Plotter class to plot a histogram for the figures count of each paper in the parsed data.
-"""
 
+@click.command()
+@click.option('--pdf-dir',
+              required=True,
+              type=click.Path(exists=True),
+              help='Directory containing PDF files.')
+@click.option('--save/--no-save',
+              default=False,
+              help='Save results to a file. Default is to display results without saving.')
+@click.option('--output-dir',
+              type=click.Path(),
+              help='Directory to save results. Defaults to current directory if --save is provided.')
 def main(pdf_dir: str, save: bool, output_dir: str | None):
+    # TODO: Call to Grobid Module
     parsed_data = parse_all_xmls()
+
+    if save and output_dir:
+        if not os.path.exists(output_dir):
+            click.echo(f"Output directory '{output_dir}' does not exist.")
+            return
+    elif save:
+        output_dir = os.getcwd()
+
     generate_word_clouds(parsed_data, output_dir)
     generate_figures_histogram(parsed_data, output_dir)
+
 
 def get_xml_files() -> list[str]:
     """
     Returns a list of the paths of all the TEI XML files in the xmls directory.
     """
-    xmls_dir = f'/path/to/xmls'
+    xmls_dir = f'{get_project_root()}/xmls'
     return [f'{xmls_dir}/{file}' for file in os.listdir(xmls_dir) if file.endswith('.tei.xml')]
+
 
 def parse_all_xmls() -> dict[str, dict[str, str | int]]:
     """
