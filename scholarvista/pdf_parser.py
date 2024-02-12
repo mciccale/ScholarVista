@@ -1,6 +1,7 @@
 """
 This file contains the PDFParser class, which is used to process PDFs using Grobid.
 """
+import os
 from grobid_client.grobid_client import GrobidClient
 
 
@@ -14,7 +15,7 @@ class PDFParser:
         Initializes the PDFParser object by creating a Grobid Client.
         """
         self.grobid_client = GrobidClient(
-            config_path='./config.json')
+            config_path=f'.{os.sep}config.json')
 
     def process_pdfs(self, pdf_dir: str, output_dir: str) -> None:
         """

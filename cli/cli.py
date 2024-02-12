@@ -55,7 +55,7 @@ def __get_tei_xml_files_from_dir(tei_xml_dir: str) -> list[str]:
     """
     Returns a list of the paths of all the TEI XML files in the xmls directory.
     """
-    return [f'{tei_xml_dir}/{file}'
+    return [os.path.join(tei_xml_dir, file)
             for file in os.listdir(tei_xml_dir) if file.endswith('.tei.xml')]
 
 
