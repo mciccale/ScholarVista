@@ -59,7 +59,6 @@ def __get_tei_xml_files_from_dir(tei_xml_dir: str) -> list[str]:
             for file in os.listdir(tei_xml_dir) if file.endswith('.tei.xml')]
 
 
-# noinspection DuplicatedCode
 def __parse_all_xmls(tei_xml_files: list[str]) -> dict[str, dict[str, str | int]]:
     """
     Parses all the TEI XML files in the xmls directory and
@@ -95,7 +94,6 @@ def __generate_keyword_clouds(
             cloud.save_to_file(output_dir)
 
 
-# noinspection DuplicatedCode
 def __generate_figures_histogram(
         parsed_data: dict[str, dict[str, str | int]],
         output_dir: str | None) -> None:
