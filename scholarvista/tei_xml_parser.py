@@ -1,5 +1,6 @@
 import logging
 import xml.etree.ElementTree as ET
+from exceptions.tag_not_found_in_tei_xml import TagNotFoundInTeiXmlException
 from utils import get_links_from_text
 
 """
@@ -23,23 +24,31 @@ class TeiXmlParser:
             self.root = ET.parse(self.file_path).getroot()
             self.body = self.__find_element_by_tag('body')
         except FileNotFoundError as e:
-            logging.error(f"File not found: {file_path}")
+            logging.error(f'File not found: {file_path}')
             raise e
         except ET.ParseError as e:
-            logging.error(f"Error parsing XML file: {file_path}")
+            logging.error(f'Error parsing XML file: {file_path}')
+            raise e
+        except TagNotFoundInTeiXmlException as e:
             raise e
 
     def get_title(self) -> str:
         """
         Returns the text of the title of the document.
         """
-        return self.__find_element_by_tag('title').text
+        try:
+            return self.__get_text_by_tag('title')
+        except TagNotFoundInTeiXmlException as e:
+            raise e
 
     def get_abstract(self) -> str:
         """
         Returns the text of the abstract of the document.
         """
-        return self.__find_element_by_tag('abstract')[0][0].text
+        try:
+            return self.__get_text_by_tag('abstract')
+        except TagNotFoundInTeiXmlException as e:
+            raise e
 
     def get_body(self) -> str:
         """
@@ -49,7 +58,7 @@ class TeiXmlParser:
             body_text = ''
             for paragraph in self.body.iter(self.__wrap_tag_with_namespace('p')):
                 if paragraph.text is not None:
-                    body_text += (paragraph.text + ' ')
+                    body_text += f'{paragraph.text} '
             return body_text
         except AttributeError as e:
             logging.error("Invalid XML structure: missing body element")
@@ -80,12 +89,28 @@ class TeiXmlParser:
             logging.error("Error occurred while extracting links")
             raise e
 
+    def __get_text_by_tag(self, tag: str) -> str:
+        try:
+            element = self.__find_element_by_tag(tag)
+            return str(element.text)
+        except TagNotFoundInTeiXmlException as e:
+            logging.error(f'Tag \'{tag}\' not found in: {self.file_path}')
+            raise e
+
     def __find_element_by_tag(self, tag: str) -> ET.Element:
         """
         Returns the first element with the given tag in the document.
+        Raises `TagNotFoundInTeiXmlException` if the tag is not found in the document.
         """
-        for elem in self.root.iter(self.__wrap_tag_with_namespace(tag)):
-            return elem
+        elem = None
+        for e in self.root.iter(self.__wrap_tag_with_namespace(tag)):
+            elem = e
+            break
+
+        if elem is None:
+            raise TagNotFoundInTeiXmlException(f'The {tag} tag was not found')
+
+        return elem
 
     def __wrap_tag_with_namespace(self, tag: str) -> str:
         """
