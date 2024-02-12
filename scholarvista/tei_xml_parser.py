@@ -6,8 +6,8 @@ from ._utils import get_links_from_text
 """
 This file contains the TeiXmlParser class, which is used to parse TEI XML files.
 
-The TeiXmlParser class provides methods to extract information from TEI XML files, such as the title, abstract, body text,
-figures count, and links.
+The TeiXmlParser class provides methods to extract information from TEI XML files,
+such as the title, abstract, body text, figures count, and links.
 """
 
 logging.basicConfig(level=logging.ERROR)

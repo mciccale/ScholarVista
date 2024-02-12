@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.ERROR)
 
 
 class KeywordCloud:
-    def __init__(self, text: str, title: str | None  = None) -> None:
+    def __init__(self, text: str, title: str | None = None) -> None:
         """
         Initializes the KeywordCloud object with the given text.
         """

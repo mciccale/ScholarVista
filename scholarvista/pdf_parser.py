@@ -4,8 +4,9 @@ from grobid_client.grobid_client import GrobidClient
 This file contains the PDFParser class, which is used to process PDFs using Grobid.
 """
 
+
 class PDFParser:
-    def __init__(self, port: int=8070) -> None:
+    def __init__(self, port: int = 8070) -> None:
         """
         Initializes the PDFParser object by creating a Grobid Client.
         """

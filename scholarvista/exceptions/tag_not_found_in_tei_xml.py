@@ -3,6 +3,7 @@ This file contains the TagNotFound exception, which is thrown when a Tag is not 
 in a TEI XML file.
 """
 
+
 class TagNotFoundInTeiXmlException(Exception):
     def __init__(self, message: str | None = None) -> None:
         """

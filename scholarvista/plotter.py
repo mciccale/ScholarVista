@@ -43,7 +43,6 @@ class Plotter:
             logging.error(f"Error displaying the figure: {self.title}")
             raise ValueError('The figure has not been generated yet.')
 
-
     def save_to_file(self, dir_path: str) -> None:
         """
         Saves a previously generated histogram in the specified directory.
