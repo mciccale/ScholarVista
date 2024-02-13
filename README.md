@@ -1,3 +1,5 @@
+![lint workflow](https://github.com/mciccale/ScholarVista/actions/workflows/main.yml/badge.svg)
+
 # ScholarVista
 
 **ScholarVista** is a tool that extracts and plots information from a set of Academic Research Papers in PDF format. It utilizes [Grobid](https://github.com/kermitt2/grobid/), a library for extracting content from research papers, to extract all the relevant data. The extracted data is then plotted and displayed using Python.

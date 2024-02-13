@@ -1,4 +1,4 @@
-name: Python Linting
+name: Main Workflow
 
 on:
   push:
@@ -20,8 +20,20 @@ jobs:
       - name: Install Poetry
         run: curl -sSL https://install.python-poetry.org | python3 - --version 1.7.1
       - name: Install dependencies
-        run: poetry install
-      - name: Install Pylint
-        run: poetry add pylint
+        run: poetry install --with dev
       - name: Lint with Pylint
         run: poetry run pylint scholarvista cli
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Poetry
+        run: curl -sSL https://install.python-poetry.org | python3 - --version 1.7.1
+      - name: Install dependencies
+        run: poetry install
+      - name: Run tests
+        run: poetry run python -m unittest discover tests

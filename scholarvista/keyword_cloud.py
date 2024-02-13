@@ -49,10 +49,7 @@ class KeywordCloud:
         """
         Saves a previously generated keyword cloud in the desired directory.
         """
-        try:
-            if self.word_cloud is None:
-                raise ValueError("Word cloud has not been generated yet.")
-            plt.savefig(path.join(dir_path, f'{self.title}.png'))
-            plt.close()
-        except ValueError as e:
-            logging.error('Error displaying word cloud: %s', str(e))
+        if self.word_cloud is None:
+            raise ValueError("Word cloud has not been generated yet.")
+        plt.savefig(path.join(dir_path, f'{self.title}.png'))
+        plt.close()

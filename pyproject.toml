@@ -13,8 +13,12 @@ click = "^8.1.7"
 grobid-client-python = "^0.0.8"
 wordcloud = "^1.9.3"
 
+[tool.poetry.group.dev.dependencies]
+pylint = "^3.0.3"
+
 [tool.poetry.scripts]
 scholarvista = 'cli.cli:main'
+
 
 [build-system]
 requires = ["poetry-core"]
