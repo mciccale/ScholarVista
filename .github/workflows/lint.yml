@@ -24,4 +24,4 @@ jobs:
       - name: Install Pylint
         run: poetry add pylint
       - name: Lint with Pylint
-        run: poetry run pylint schrolarvista cli
+        run: poetry run pylint scholarvista cli
