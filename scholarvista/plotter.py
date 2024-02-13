@@ -14,6 +14,8 @@ class Plotter:
     """
     This class is used to plot a histogram of the given data.
     """
+    # pylint: disable=too-many-arguments
+    # The number of arguments is reasonable in this case.
 
     def __init__(self, title, x_label, x_data, y_label, y_data) -> None:
         """
