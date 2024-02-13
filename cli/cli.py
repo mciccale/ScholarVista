@@ -20,7 +20,8 @@ import scholarvista as sv
               help='Save results to a file. Default is to display results without saving.')
 @click.option('--output-dir',
               type=click.Path(),
-              help='Directory to save results. Defaults to current directory if the --save flag is provided.')
+              help='''Directory to save results.
+              Defaults to current directory if the --save flag is provided.''')
 def main(pdf_dir: str | None,  output_dir: str | None = None, save: bool = False):
     """
     Process all PDFs in the given directory and display or save the results.
@@ -139,4 +140,6 @@ def generate_links_list(
 
 
 if __name__ == '__main__':
+    # pylint: disable=no-value-for-parameter
+    # The Click library will automatically pass the parameters to the main function.
     main()

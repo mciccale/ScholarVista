@@ -4,6 +4,9 @@ This file contains the PDFParser class, which is used to process PDFs using Grob
 import os
 from grobid_client.grobid_client import GrobidClient
 
+# pylint: disable=too-few-public-methods
+# It is a good practice to keep the classes small and focused on a single task.
+
 
 class PDFParser:
     """
