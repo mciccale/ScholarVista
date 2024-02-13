@@ -2,21 +2,40 @@
 
 The purpose of this file is to provide a rationale for the project. It explains the reasons behind the decisions made, the goals and objectives of the project, and the justification for its implementation. The rationale serves as a guide for understanding the project's context and helps understand the architecture / pipeline.
 
-## Grobid
+## Table of Contents
+
+- [PDFParser](#pdfparser)
+- [TEIXMLParser](#teixmlparser)
+- [KeywordCloud](#keywordcloud)
+- [Plotter](#plotter)
+
+## PDFParser
 
 ### Description
 
-TODO
+The **PDFParser** module is responsible for acting as a bridge between **ScholarVista** and the **Grobid Client for Python**. It processes a set of PDFs in a specified directory.
 
 ### Functionality
 
-TODO
+This module uses the **Grobid Client for Python** for analyzing the PDFs
 
 ### Usage
 
-TODO
+Create an instance of the parser:
 
-## TeiXmlParser
+```py
+import scholarvista as sv
+
+parser = sv.PDFParser()
+```
+
+Process the PDFs contained in the desired directory and specify an output directory for the **TEI XML** files:
+
+```py
+parser.process_pdfs(pdf_dir='/path/to/pdf/dir', output_dir='./output')
+```
+
+## TEIXMLParser
 
 ### Description
 
@@ -37,7 +56,9 @@ This module searches for specific tags in the **TEI XML** file and iterates thro
 Create an instance of the parser:
 
 ```py
-parser = TeiXmlParser(file_path='/path/to/tei/xml/file')
+import scholarvista as sv
+
+parser = sv.TEIXMLParser(file_path='/path/to/tei/xml/file')
 ```
 
 Extract the desired information:
@@ -65,10 +86,12 @@ This module makes use of the **[WordCloud](https://pypi.org/project/wordcloud/)*
 Create an instance of KeywordCloud with one article's abstract extracted with `TeiXmlParser`:
 
 ```py
-parser = TeiXmlParser(file_path='/path/to/tei/xml/file')
+import scholarvista as sv
+
+parser = sv.TeiXmlParser(file_path='/path/to/tei/xml/file')
 text = parser.get_abstract()
 title = 'Abstract'
-keyword_cloud = KeywordCloud(text=text, title=title)
+keyword_cloud = sv.KeywordCloud(text=text, title=title)
 ```
 
 Generate and display the figure:
@@ -92,10 +115,12 @@ This module makes use of the **[Matplotlib](https://pypi.org/project/matplotlib/
 Generate a Plotter that will show the number of figures obtained by the `TeiXmlParser`:
 
 ```py
+import scholarvista as sv
+
 xml_files = ['/path/to/tei/xml/file1', '/path/to/tei/xml/file2']
 parsed_data = {}
 for xml_file in xml_files:
-    parser = TeiXmlParser(file_path=xml_file)
+    parser = sv.TeiXmlParser(file_path=xml_file)
     parsed_data[parser.get_title()] = {
         'abstract': parser.get_abstract(),
         'figures_count': parser.get_figures_count(),
@@ -104,7 +129,7 @@ for xml_file in xml_files:
 
 figures_counts = [data['figures_count']
                       for data in list(parsed_data.values())]
-figures_per_article_histogram = Plotter(x=range(0, len(figures_counts)), y=figures_counts)
+figures_per_article_histogram = sv.Plotter(x=range(0, len(figures_counts)), y=figures_counts)
 ```
 
 Display the figure:

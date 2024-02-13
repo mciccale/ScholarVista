@@ -14,8 +14,13 @@ class PDFParser:
         """
         Initializes the PDFParser object by creating a Grobid Client.
         """
-        self.grobid_client = GrobidClient(
-            config_path=f'.{os.sep}config.json')
+        try:
+            print('> Connecting to Grobid server...')
+            self.grobid_client = GrobidClient(
+                config_path=f'.{os.sep}config.json')
+        except ConnectionRefusedError as e:
+            raise ConnectionRefusedError(
+                '> The Grobid server is not running') from e
 
     def process_pdfs(self, pdf_dir: str, output_dir: str) -> None:
         """

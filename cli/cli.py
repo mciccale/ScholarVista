@@ -20,7 +20,7 @@ import scholarvista as sv
               help='Save results to a file. Default is to display results without saving.')
 @click.option('--output-dir',
               type=click.Path(),
-              help='Directory to save results. Defaults to current directory.')
+              help='Directory to save results. Defaults to current directory if the --save flag is provided.')
 def main(pdf_dir: str | None,  output_dir: str | None = None, save: bool = False):
     """
     Process all PDFs in the given directory and display or save the results.
@@ -37,21 +37,25 @@ def main(pdf_dir: str | None,  output_dir: str | None = None, save: bool = False
     with TemporaryDirectory() as tei_xml_dir:
         print(f'> Processing all PDFs in {pdf_dir}...')
 
-        # Process the PDFs with PDFParser
-        sv.PDFParser().process_pdfs(pdf_dir=pdf_dir, output_dir=tei_xml_dir)
+        try:
+            # Process the PDFs with PDFParser
+            sv.PDFParser().process_pdfs(pdf_dir=pdf_dir, output_dir=tei_xml_dir)
+        except ConnectionRefusedError:
+            click.echo('> The Grobid server is not running')
+            return
 
         # Parse all TEI XML files to get the relevant information
-        parsed_data = __parse_all_xmls(
-            __get_tei_xml_files_from_dir(tei_xml_dir=tei_xml_dir))
+        parsed_data = parse_all_xmls(
+            get_tei_xml_files_from_dir(tei_xml_dir=tei_xml_dir))
 
     # Generate the keyword clouds
-    __generate_keyword_clouds(parsed_data, output_dir)
+    generate_keyword_clouds(parsed_data, output_dir)
 
     # Generate the figures histogram
-    __generate_figures_histogram(parsed_data, output_dir)
+    generate_figures_histogram(parsed_data, output_dir)
 
 
-def __get_tei_xml_files_from_dir(tei_xml_dir: str) -> list[str]:
+def get_tei_xml_files_from_dir(tei_xml_dir: str) -> list[str]:
     """
     Returns a list of the paths of all the TEI XML files in the xmls directory.
     """
@@ -59,7 +63,7 @@ def __get_tei_xml_files_from_dir(tei_xml_dir: str) -> list[str]:
             for file in os.listdir(tei_xml_dir) if file.endswith('.tei.xml')]
 
 
-def __parse_all_xmls(tei_xml_files: list[str]) -> dict[str, dict[str, str | int]]:
+def parse_all_xmls(tei_xml_files: list[str]) -> dict[str, dict[str, str | int]]:
     """
     Parses all the TEI XML files in the xmls directory and
     returns a dictionary containing the parsed data.
@@ -77,7 +81,7 @@ def __parse_all_xmls(tei_xml_files: list[str]) -> dict[str, dict[str, str | int]
     return parsed_data
 
 
-def __generate_keyword_clouds(
+def generate_keyword_clouds(
         parsed_data: dict[str, dict[str, str | int]],
         output_dir: str | None) -> None:
     """
@@ -94,7 +98,7 @@ def __generate_keyword_clouds(
             cloud.save_to_file(output_dir)
 
 
-def __generate_figures_histogram(
+def generate_figures_histogram(
         parsed_data: dict[str, dict[str, str | int]],
         output_dir: str | None) -> None:
     """
@@ -114,6 +118,24 @@ def __generate_figures_histogram(
         histogram.display()
     else:
         histogram.save_to_file(output_dir)
+
+
+def generate_links_list(
+        parsed_data: dict[str, dict[str, str | int]],
+        output_dir: str | None) -> None:
+    """
+    Generates and displays a list of links for each abstract in the parsed data.
+    """
+    print('> Generating Links List...')
+
+    if output_dir is None:
+        for title, data in parsed_data.items():
+            print(f"\n{title} Links:")
+            print("\n".join(data['links']))
+    else:
+        for title, data in parsed_data.items():
+            with open(os.path.join(output_dir, f"{title}.txt"), "w", encoding='utf-8') as file:
+                file.write("\n".join(data['links']))
 
 
 if __name__ == '__main__':
