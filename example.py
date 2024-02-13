@@ -18,7 +18,7 @@ def main(pdf_dir: str | None,  output_dir: str | None = None, save: bool = False
         print(f'> Processing all PDFs in {pdf_dir}...')
 
         # Process the PDFs with PDFParser
-        sv.PDFParser().process_pdfs(pdf_dir=pdf_dir, output_dir=tei_xml_dir.name)
+        sv.PDFParser().process_pdfs(pdf_dir=pdf_dir, output_dir=tei_xml_dir)
 
         # Parse all TEI XML files to get the relevant information
         parsed_data = __parse_all_xmls(
@@ -43,7 +43,7 @@ def __get_tei_xml_files_from_dir(tei_xml_dir: str) -> list[str]:
     """
     Returns a list of the paths of all the TEI XML files in the xmls directory.
     """
-    return [f'{tei_xml_dir}/{file}'
+    return [os.path.join(tei_xml_dir, file)
             for file in os.listdir(tei_xml_dir) if file.endswith('.tei.xml')]
 
 
@@ -105,4 +105,4 @@ def __generate_figures_histogram(
 
 
 if __name__ == '__main__':
-    main(pdf_dir=None)
+    main()
