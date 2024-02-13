@@ -1,4 +1,5 @@
 ![lint workflow](https://github.com/mciccale/ScholarVista/actions/workflows/main.yml/badge.svg)
+![PyPI version](https://badge.fury.io/py/scholarvista.svg)
 ![zenodo](https://zenodo.org/badge/DOI/10.5281/zenodo.10654761.svg)
 
 # ScholarVista
