@@ -1,6 +1,5 @@
 [![Documentation Status](https://readthedocs.org/projects/scholarvista/badge/?version=latest)](https://scholarvista.readthedocs.io/en/latest/?badge=latest)
 [![zenodo](https://zenodo.org/badge/DOI/10.5281/zenodo.10654761.svg)](https://zenodo.org/doi/10.5281/zenodo.10654760)
-![publish workflow](https://github.com/mciccale/ScholarVista/actions/workflows/publish.yml/badge.svg)
 ![test workflow](https://github.com/mciccale/ScholarVista/actions/workflows/test.yml/badge.svg)
 ![lint workflow](https://github.com/mciccale/ScholarVista/actions/workflows/lint.yml/badge.svg)
 
@@ -31,8 +30,6 @@ _Note: The TEI XML files **MUST** be obtained using Grobid, as this tool is inte
 
 
 ## Install ScholarVista
-
-### PIP
 
 ```bash
 git clone https://github.com/mciccale/ScholarVista
@@ -75,14 +72,14 @@ You can execute **ScholarVista CLI** from your shell like this:
 
 ```bash
 # Process PDF files and save the results to a specified directory
-$ scholarvista --input-dir ./pdfs --output-dir ./output process-pdfs
+scholarvista --input-dir ./pdfs --output-dir ./output process-pdfs
 ```
 
 _Note: The `process-pdfs` command requires the Grobid Service to be up and running as described in [requirements](#requirements)._
 
 ```bash
 # Process TEI XML files and save the results to the current directory
-$ scholarvista --input-dir ./xmls process-xmls
+scholarvista --input-dir ./xmls process-xmls
 ```
 
 ## License
