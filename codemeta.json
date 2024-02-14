@@ -7,7 +7,7 @@
     "datePublished": "2024-02-14",
     "dateModified": "2024-02-14",
     "name": "ScholarVista",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "identifier": "10.5281/zenodo.10654760",
     "description": "ScholarVista is a tool that analyzes research papers and extracts and plots information from them. It utilizes Grobid, a library for extracting content from research papers, to extract all the relevant data. The extracted data is then plotted and displayed using Python.",
     "applicationCategory": "Research",
