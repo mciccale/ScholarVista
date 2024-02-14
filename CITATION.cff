@@ -6,7 +6,7 @@ authors:
     orcid: https://orcid.org/0009-0000-8821-0587
 title: 'ScholarVista'
 license: Apache-2.0
-version: '0.1.1-beta'
-doi: '0.5281/zenodo.10654761'
+version: '0.1.1'
+doi: '10.5281/zenodo.10654760'
 date-released: 2024-02-13
 url: 'https://github.com/mciccale/ScholarVista'

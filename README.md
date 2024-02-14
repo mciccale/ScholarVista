@@ -1,7 +1,9 @@
-![lint workflow](https://github.com/mciccale/ScholarVista/actions/workflows/main.yml/badge.svg)
-![PyPI version](https://badge.fury.io/py/scholarvista.svg)
+[![PyPI version](https://badge.fury.io/py/scholarvista.svg)](https://pypi.org/project/scholarvista)
 [![Documentation Status](https://readthedocs.org/projects/scholarvista/badge/?version=latest)](https://scholarvista.readthedocs.io/en/latest/?badge=latest)
-![zenodo](https://zenodo.org/badge/DOI/10.5281/zenodo.10654761.svg)
+[![zenodo](https://zenodo.org/badge/DOI/10.5281/zenodo.10654761.svg)](https://zenodo.org/doi/10.5281/zenodo.10654760)
+![publish workflow](https://github.com/mciccale/ScholarVista/actions/workflows/publish.yml/badge.svg)
+![test workflow](https://github.com/mciccale/ScholarVista/actions/workflows/test.yml/badge.svg)
+![lint workflow](https://github.com/mciccale/ScholarVista/actions/workflows/lint.yml/badge.svg)
 
 # ScholarVista
 

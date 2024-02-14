@@ -1,0 +1,21 @@
+name: Publish Workflow
+on:
+  release:
+    types: [created]
+jobs:
+  publish:
+    needs: [test, lint]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Poetry
+        run: curl -sSL https://install.python-poetry.org | python3 - --version 1.7.1
+      - name: Install dependencies
+        run: poetry install
+      - name: Set up Poetry Key
+        run: poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
+      - name: Publish to PyPI
+        run: poetry publish --build
