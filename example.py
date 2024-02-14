@@ -1,5 +1,7 @@
 """
 Example of the usage of the scholarvista package.
+
+It is required to have the Grobid server running to process the PDFs.
 """
 
 import os
@@ -17,7 +19,8 @@ def main() -> None:
     xml_file_path = None
     with TemporaryDirectory() as tei_xml_dir:
         # Process the PDFs with PDFParser
-        sv.PDFParser().process_pdfs(pdf_dir='./resources', output_dir=tei_xml_dir)
+        sv.PDFParser().process_pdfs(pdf_dir='./resources',
+                                    output_dir=tei_xml_dir)
 
         # Find the .tei.xml file in the temporary directory
         xml_file_path = os.listdir(tei_xml_dir)[0]
@@ -29,7 +32,7 @@ def main() -> None:
     abstract, links = parser.get_abstract(), parser.get_links()
 
     # Draw a keyword cloud for the abstract
-    sv.KeywordCloud(text=abstract).generate().display()
+    sv.KeywordCloud(text=abstract, title='Abstract').generate().display()
 
     # Print the list of links in the document
     print(links)

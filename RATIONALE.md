@@ -88,7 +88,7 @@ Create an instance of KeywordCloud with one article's abstract extracted with `T
 ```py
 import scholarvista as sv
 
-parser = sv.TeiXmlParser(file_path='/path/to/tei/xml/file')
+parser = sv.TEIXMLParser(file_path='/path/to/tei/xml/file')
 text = parser.get_abstract()
 title = 'Abstract'
 keyword_cloud = sv.KeywordCloud(text=text, title=title)
@@ -120,7 +120,7 @@ import scholarvista as sv
 xml_files = ['/path/to/tei/xml/file1', '/path/to/tei/xml/file2']
 parsed_data = {}
 for xml_file in xml_files:
-    parser = sv.TeiXmlParser(file_path=xml_file)
+    parser = sv.TeEIXMLParser(file_path=xml_file)
     parsed_data[parser.get_title()] = {
         'abstract': parser.get_abstract(),
         'figures_count': parser.get_figures_count(),
@@ -129,11 +129,16 @@ for xml_file in xml_files:
 
 figures_counts = [data['figures_count']
                       for data in list(parsed_data.values())]
-figures_per_article_histogram = sv.Plotter(x=range(0, len(figures_counts)), y=figures_counts)
+
+figures_per_article_histogram = Plotter(title='Figures per Article',
+                                        x_label='Article',
+                                        x_data=range(0, len(figures_counts)),
+                                        y_label='Figures',
+                                        y_data=figures_counts)
 ```
 
 Display the figure:
 
 ```py
-figures_per_article_histogram.plot_histogram()
+figures_per_article_histogram.generate().display()
 ```

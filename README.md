@@ -5,7 +5,11 @@
 
 # ScholarVista
 
-**ScholarVista** is a tool that extracts and plots information from a set of Academic Research Papers in PDF format. It utilizes [Grobid](https://github.com/kermitt2/grobid/), a library for extracting content from research papers, to extract all the relevant data. The extracted data is then plotted and displayed using Python.
+**ScholarVista** is a tool that extracts and plots information from a set of Academic Research Papers in PDF / TEI XML format. To process PDFs, it utilizes [Grobid](https://github.com/kermitt2/grobid/) to generate the TEI XML files, then **ScholarVista** extracts the relevant information from the TEI XML files and generates the following data:
+
+1. **Keyword Cloud** for each of the paper's abstract.
+2. **Links List** for each one of the links found in the paper.
+3. **Figures Histogram** comparing the number of figures per paper.
 
 ## Table of Contents:
 
@@ -18,7 +22,9 @@
 
 ## Requirements
 
-You will need the **Grobid Service** to be installed and running in your machine. See Grobid Installation Instrucions [here](https://grobid.readthedocs.io/en/latest/Run-Grobid/).
+If you want to generate the results from a set of PDF academic papers, you must ensure that the **Grobid Service** to be installed and running in your machine. See Grobid Installation Instrucions [here](https://grobid.readthedocs.io/en/latest/Run-Grobid/).
+
+If you already have the TEI XML files generated, you can directly generate the information from them.
 
 ## Install ScholarVista
 
@@ -36,20 +42,21 @@ When using **_pip_** it is a good practice to use virtual environments. Check ou
 
 The most convenient way of using **ScholarVista** is by using its CLI.
 
-The CLI Tool will generate a **keyword cloud** and a **list of URLs** for each PDF analyzed, together with a **histogram** comparing the numer of figures of each PDF.
+The CLI Tool will generate and save to a directory a **keyword cloud** and a **list of URLs** for each PDF analyzed, together with a **histogram** comparing the numer of figures of each PDF.
 
 ```
-Usage: scholarvista [OPTIONS]
+Usage: scholarvista [OPTIONS] COMMAND [ARGS]...
 
-  Process all PDFs in the given directory and display or save the results.
+  ScholarVista's CLI main entry point.
 
 Options:
-  --pdf-dir PATH      Directory containing PDF files.  [required]
-  --save / --no-save  Save results to a file. Default is to display results
-                      without saving.
-  --output-dir PATH   Directory to save results. Defaults to current directory
-                      if the --save flag is provided.
-  --help              Show this message and exit.
+  --input-dir PATH   Directory containing PDF files.  [required]
+  --output-dir PATH  Directory to save results. Defaults to current directory.
+  --help             Show this message and exit.
+
+Commands:
+  process-pdfs  Process all PDFs in the given directory.
+  process-xmls  Process all TEI XMLs in the given directory.
 ```
 
 ### Python Modules
@@ -58,18 +65,18 @@ See `example.py`
 
 ## Execution Instructions
 
-Make sure the **Grobid Service** is up and running. See [requirements](#requirements).
-
-Once it has started, you can execute **ScholarVista CLI** from your shell like this:
+You can execute **ScholarVista CLI** from your shell like this:
 
 ```bash
-# Save it to a specified directory
-$ scholarvista --pdf-dir ./my_pdfs --save --output-dir ./output
+# Process PDF files and save the results to a specified directory
+$ scholarvista --input-dir ./pdfs --output-dir ./output process-pdfs
 ```
 
+_Note: The `process-pdfs` command requires the Grobid Service to be up and running as described in [requirements](#requirements)._
+
 ```bash
-# Display the results without saving them
-$ scholarvista --pdf-dir ./my_pdfs
+# Process TEI XML files and save the results to the current directory
+$ scholarvista --input-dir ./xmls process-xmls
 ```
 
 ## License

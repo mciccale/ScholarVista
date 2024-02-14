@@ -1,0 +1,17 @@
+site_name: ScholarVista Documentation
+
+nav:
+  - Home: index.md
+  - Install: install.md
+  - Usage: usage.md
+  - CLI Tool: cli.md
+
+theme:
+  name: material
+
+markdown_extensions:
+  - admonition # Add admonition support
+  - codehilite: # Code highlighting
+      guess_lang: false
+  - toc: # Table of contents
+      permalink: true
