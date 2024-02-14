@@ -41,7 +41,7 @@ class KeywordCloud:
         Displays the generated keyword cloud.
         """
         if self.word_cloud is None:
-            raise ValueError("Word cloud has not been generated yet.")
+            raise ValueError('Word cloud has not been generated yet.')
         plt.show()
         plt.close()
 
@@ -50,6 +50,6 @@ class KeywordCloud:
         Saves a previously generated keyword cloud in the desired directory.
         """
         if self.word_cloud is None:
-            raise ValueError("Word cloud has not been generated yet.")
-        plt.savefig(path.join(dir_path, f'{self.title}.png'))
+            raise ValueError('Word cloud has not been generated yet.')
+        plt.savefig(path.join(dir_path, 'keyword_cloud.png'))
         plt.close()

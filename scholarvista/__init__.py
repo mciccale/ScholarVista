@@ -7,6 +7,7 @@ from .keyword_cloud import KeywordCloud
 from .plotter import Plotter
 from .tei_xml_parser import TEIXMLParser
 from .pdf_parser import PDFParser
+from .cli.scholarvista import cli
 
 __all__ = ['TagNotFoundInTeiXmlException', 'KeywordCloud',
-           'Plotter', 'TEIXMLParser', 'PDFParser']
+           'Plotter', 'TEIXMLParser', 'PDFParser', 'cli']
