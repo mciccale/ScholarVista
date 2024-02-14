@@ -25,6 +25,6 @@ def generate_keyword_clouds(parsed_data: dict[str, dict[str, str | int]],
                  title='All Abstracts').generate().save_to_file(dir_path=output_dir)
 
     # Generate a keyword cloud for every abstract
-    for title, abstract in titles, abstracts:
+    for title, abstract in zip(titles, abstracts):
         KeywordCloud(text=abstract,
                      title=title).generate().save_to_file(dir_path=path.join(output_dir, title))
