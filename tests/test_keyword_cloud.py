@@ -43,9 +43,10 @@ class KeywordCloudTestCase(TestCase):
         with patch("matplotlib.pyplot.savefig") as mock_savefig, \
                 patch("matplotlib.pyplot.close") as mock_close:
             self.keyword_cloud.word_cloud = "mock_word_cloud"
-            self.keyword_cloud.save_to_file("/path/to/directory")
+            self.keyword_cloud.save_to_file(
+                f"/path/to/directory/{self.keyword_cloud.title}")
             mock_savefig.assert_called_once_with(
-                "/path/to/directory/Test Cloud.png")
+                "/path/to/directory/Test Cloud/keyword_cloud.png")
             mock_close.assert_called_once()
 
     def test_save_to_file_no_word_cloud(self):

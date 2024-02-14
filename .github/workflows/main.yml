@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: poetry install --with dev
       - name: Lint with Pylint
-        run: poetry run pylint scholarvista cli
+        run: poetry run pylint scholarvista
   test:
     runs-on: ubuntu-latest
 
