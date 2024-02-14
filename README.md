@@ -24,9 +24,12 @@
 
 ## Requirements
 
-If you want to generate the results from a set of PDF academic papers, you must ensure that the **Grobid Service** to be installed and running in your machine. See Grobid Installation Instrucions [here](https://grobid.readthedocs.io/en/latest/Run-Grobid/).
+If you want to generate the results from a set of PDF academic papers, you must ensure that the **Grobid Service** is installed and running in your machine. See Grobid installation instrucions [here](https://grobid.readthedocs.io/en/latest/Run-Grobid/).
 
-If you already have the TEI XML files generated, you can directly generate the information from them.
+If you already have the TEI XML files generated from Grobid saved in a folder, you can directly generate the information from them.
+
+_Note: The TEI XML files **MUST** be obtained using Grobid, as this tool is intended to work only with Grobid generated TEI XML files._
+
 
 ## Install ScholarVista
 
@@ -44,7 +47,7 @@ When using **_pip_** it is a good practice to use virtual environments. Check ou
 
 The most convenient way of using **ScholarVista** is by using its CLI.
 
-The CLI Tool will generate and save to a directory a **keyword cloud** and a **list of URLs** for each PDF analyzed, together with a **histogram** comparing the numer of figures of each PDF.
+The CLI Tool will generate and save to a directory a **keyword cloud** of the abstract and a **list of URLs** for each PDF analyzed, together with a **histogram** comparing the numer of figures of each PDF and a general **keyword cloud** of all abstracts.
 
 ```
 Usage: scholarvista [OPTIONS] COMMAND [ARGS]...
@@ -63,7 +66,7 @@ Commands:
 
 ### Python Modules
 
-See `example.py`
+**ScholarVista** provides a set of classes to take leverage of all its functionality from your Python code. To see an example, see `example.py`
 
 ## Execution Instructions
 
