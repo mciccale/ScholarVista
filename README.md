@@ -1,4 +1,3 @@
-[![PyPI version](https://badge.fury.io/py/scholarvista.svg)](https://pypi.org/project/scholarvista)
 [![Documentation Status](https://readthedocs.org/projects/scholarvista/badge/?version=latest)](https://scholarvista.readthedocs.io/en/latest/?badge=latest)
 [![zenodo](https://zenodo.org/badge/DOI/10.5281/zenodo.10654761.svg)](https://zenodo.org/doi/10.5281/zenodo.10654760)
 ![publish workflow](https://github.com/mciccale/ScholarVista/actions/workflows/publish.yml/badge.svg)
@@ -36,7 +35,9 @@ _Note: The TEI XML files **MUST** be obtained using Grobid, as this tool is inte
 ### PIP
 
 ```bash
-$ pip install scholarvista
+git clone https://github.com/mciccale/ScholarVista
+cd ScholarVista
+pip install .
 ```
 
 When using **_pip_** it is a good practice to use virtual environments. Check out the official documentation on virtual envornments [here](https://docs.python.org/3/library/venv.html).
