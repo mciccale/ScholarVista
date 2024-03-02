@@ -24,3 +24,9 @@ def get_links_from_text(text: str) -> list[str]:
         r'((http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-]))'
     matches = re.findall(link_regex, text)
     return [match[0] for match in matches]
+
+def transform_string_to_valid_dirname(string: str) -> str:
+    """
+    Transforms the given string into a valid directory name.
+    """
+    return "".join([c for c in string if c.isalnum()])

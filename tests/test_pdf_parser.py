@@ -18,7 +18,8 @@ class PDFParserTestCase(unittest.TestCase):
         Tests the initialization of the PDFParser object.
         """
         parser = PDFParser()
-        mock_grobid_client.assert_called_with(config_path='./config.json')
+        mock_grobid_client.assert_called_with(grobid_server='http://localhost:8070',
+                                              timeout=360)
         self.assertIsNotNone(parser.grobid_client)
 
     @patch('scholarvista.pdf_parser.GrobidClient')

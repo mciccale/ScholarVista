@@ -13,16 +13,23 @@
 
 ## Table of Contents:
 
-- **[Requirements](#requirements)**
-- **[Install ScholarVista](#install-scholarvista)**
-- **[Using ScholarVista](#using-scholarvista)**
-- **[Execution Instructions](#execution-instructions)**
-- **[Running Example](#running-example)**
-- **[Where to Get Help](#where-to-get-help)**
+- [Requirements](#requirements)
+- [Install ScholarVista](#install-scholarvista)
+- [Execution Instructions](#execution-instructions)
+- [License](#license)
+- [Where to Get Help](#where-to-get-help)
 
 ## Requirements
 
 If you want to generate the results from a set of PDF academic papers, you must ensure that the **Grobid Service** is installed and running in your machine. See Grobid installation instrucions [here](https://grobid.readthedocs.io/en/latest/Run-Grobid/).
+
+The most straight-forward way of starting and running **Grobid Service** is by running a _Docker_ image. Make sure you have _Docker_ installed in your system.
+
+```bash
+docker run --rm --init --ulimit core=0 -p 8070:8070 lfoppiano/grobid:0.8.0
+```
+
+This command will run **Grobid** and expose a web client in port 8070.
 
 If you already have the TEI XML files generated from Grobid saved in a folder, you can directly generate the information from them.
 
@@ -30,6 +37,10 @@ _Note: The TEI XML files **MUST** be obtained using Grobid, as this tool is inte
 
 
 ## Install ScholarVista
+
+### From Source
+
+To install **ScholarVista** from source, you can clone the repository and install the package using **_pip_**.
 
 ```bash
 git clone https://github.com/mciccale/ScholarVista
@@ -39,13 +50,17 @@ pip install .
 
 When using **_pip_** it is a good practice to use virtual environments. Check out the official documentation on virtual envornments [here](https://docs.python.org/3/library/venv.html).
 
-## Using ScholarVista
+### Docker Container
+
+TODO
+ 
+## Execution Instructions
 
 ### CLI Tool
 
 The most convenient way of using **ScholarVista** is by using its CLI.
 
-The CLI Tool will generate and save to a directory a **keyword cloud** of the abstract and a **list of URLs** for each PDF analyzed, together with a **histogram** comparing the numer of figures of each PDF and a general **keyword cloud** of all abstracts.
+The CLI Tool will generate and save to a directory a **keyword cloud** of the abstract of each paper and a **list of URLs** for each PDF analyzed; together with a **histogram** comparing the numer of figures of each PDF and a general **keyword cloud** of all abstracts.
 
 ```
 Usage: scholarvista [OPTIONS] COMMAND [ARGS]...
@@ -62,11 +77,7 @@ Commands:
   process-xmls  Process all TEI XMLs in the given directory.
 ```
 
-### Python Modules
-
-**ScholarVista** provides a set of classes to take leverage of all its functionality from your Python code. To see an example, see `example.py`
-
-## Execution Instructions
+#### Example
 
 You can execute **ScholarVista CLI** from your shell like this:
 
@@ -81,6 +92,10 @@ _Note: The `process-pdfs` command requires the Grobid Service to be up and runni
 # Process TEI XML files and save the results to the current directory
 scholarvista --input-dir ./xmls process-xmls
 ```
+
+### Python Modules
+
+**ScholarVista** provides a set of classes and modules to take leverage of all its functionality from your Python code. To see an example, see `example.py`
 
 ## License
 

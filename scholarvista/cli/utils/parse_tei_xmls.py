@@ -4,6 +4,7 @@ and return the parsed data.
 """
 import os
 from ...tei_xml_parser import TEIXMLParser
+from ..._utils import transform_string_to_valid_dirname
 
 
 def parse_tei_xmls(input_dir: str) -> dict[str, dict[str, str | int]]:
@@ -15,7 +16,7 @@ def parse_tei_xmls(input_dir: str) -> dict[str, dict[str, str | int]]:
     parsed_data = {}
     for file in files:
         parser = TEIXMLParser(file_path=file)
-        parsed_data[parser.get_title()] = {
+        parsed_data[transform_string_to_valid_dirname(parser.get_title())] = {
             'abstract': parser.get_abstract(),
             'figures_count': parser.get_figures_count(),
             'links': parser.get_links()

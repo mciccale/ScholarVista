@@ -7,7 +7,7 @@ nav:
   - CLI Tool: cli.md
 
 theme:
-  name: material
+  name: readthedocs
 
 markdown_extensions:
   - admonition # Add admonition support

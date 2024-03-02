@@ -11,6 +11,7 @@ from .utils.parse_tei_xmls import parse_tei_xmls
 from .utils.generate_links_list import generate_links_list
 from .utils.generate_keyword_clouds import generate_keyword_clouds
 from .utils.generate_figures_histogram import generate_figures_histogram
+from .._utils import transform_string_to_valid_dirname
 
 
 @click.group()
@@ -60,7 +61,7 @@ def process_pdfs(ctx) -> None:
         parse_pdfs(input_dir=input_dir, output_dir=tmp_dir)
 
         print('> Processing all TEI XML files...')
-        parsed_data = parse_tei_xmls(input_dir=input_dir)
+        parsed_data = parse_tei_xmls(input_dir=tmp_dir)
 
     generate_data(parsed_data=parsed_data, output_dir=output_dir)
 
@@ -110,7 +111,8 @@ def generate_directories(titles: list[str], output_dir: str) -> None:
     Generates the directory structure for the output.
     """
     for title in titles:
-        os.makedirs(os.path.join(output_dir, title), exist_ok=True)
+        os.makedirs(os.path.join(output_dir, transform_string_to_valid_dirname(title)),
+                    exist_ok=True)
 
 
 if __name__ == '__main__':

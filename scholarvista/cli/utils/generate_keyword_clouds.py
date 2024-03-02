@@ -21,7 +21,7 @@ def generate_keyword_clouds(parsed_data: dict[str, dict[str, str | int]],
         abstracts.append(str(data['abstract']))
 
     # Generate a global keyword cloud
-    KeywordCloud(text=reduce(lambda a, b: a + b, abstracts),
+    KeywordCloud(text=reduce(lambda a, b: a + b, abstracts, ""),
                  title='All Abstracts').generate().save_to_file(dir_path=output_dir)
 
     # Generate a keyword cloud for every abstract
