@@ -1,8 +1,0 @@
-http://exoplanet.eu/
-https://www.aao.gov.au/science/instruments/current/UCLES/observing
-http://www.ast.obs-mip.fr/projets/narval/v1/
-https://tess.mit.edu/
-http://polarbase.irap.omp.eu/
-http://archive.eso.org/cms.html
-https://archives.datacentral.org.au/
-https://mast.stsci.edu/
