@@ -96,18 +96,17 @@ Commands:
 
 ##### Example
 
-You can execute **ScholarVista CLI** from your shell like this:
+1. Start **Grobid** service using the container.
+
+```bash
+docker run --rm --init --ulimit core=0 -p 8070:8070 lfoppiano/grobid:0.8.0
+```
+
+2. Run **ScholarVista's** CLI to process all the PDFs in a given directory and leave the results in another directory.
 
 ```bash
 # Process PDF files and save the results to a specified directory
 scholarvista --input-dir ./pdfs --output-dir ./output process-pdfs
-```
-
-_Note: The `process-pdfs` command requires the Grobid Service to be up and running as described in [requirements](#requirements)._
-
-```bash
-# Process TEI XML files and save the results to the current directory
-scholarvista --input-dir ./xmls process-xmls
 ```
 
 #### Python Modules
@@ -132,6 +131,13 @@ docker run -it --rm --network=host -v /path/to/input/dir:/input -v /path/to/outp
 
 *Note: The default behaviour of ScholarVista's Docker Image is processing pdf files, you can override this by providing the `process-xmls` argument after the image name.* 
 
+#### Example
+
+Here's an example where we process a set of PDFs contained in the `foo` directory and we leave the results at `bar` using the Docker Image. Assuming the **Grobid** service is running at `localhost:8070`. 
+
+```bash
+docker run -it --rm --network=host -v foo:/input -v bar:/output scholarvista-app process-pdfs
+```
 
 ## License
 

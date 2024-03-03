@@ -8,19 +8,19 @@ There are two ways of installing **ScholarVista**:
 
 ## From Source
 
-### Prerequisites
+To install **ScholarVista** from source, you can clone the repository and install the package using **_pip_**. When using **_pip_** it is a good practice to use virtual environments. Check out the official documentation on virtual envornments [here](https://docs.python.org/3/library/venv.html).
 
-**ScholarVista** needs **Python >=3.12**.
-
-To install **ScholarVista** from source, you can clone the repository and install the package using **_pip_** in a clean environment.
+#### Conda
 
 ```bash
 git clone https://github.com/mciccale/ScholarVista
 cd ScholarVista
+conda create -n scholarvista-env-3.12 python=3.12
+conda activate scholarvista-env-3.12
 pip install .
 ```
 
-When using **_pip_** it is a good practice to use virtual environments. Check out the official documentation on virtual envornments [here](https://docs.python.org/3/library/venv.html).
+_Note: You can use **PyEnv** to create a virtual environment. But since **ScholarVista** needs Python >=3.12, it is more suitable to use **Conda**, where you can select the **Python** version to use._
 
 ## Docker Container
 

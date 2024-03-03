@@ -27,27 +27,26 @@ Commands:
   process-xmls  Process all TEI XMLs in the given directory.
 ```
 
-#### Example
+##### Example
 
-You can execute **ScholarVista CLI** from your shell like this:
+1. Start **Grobid** service using the container.
+
+```bash
+docker run --rm --init --ulimit core=0 -p 8070:8070 lfoppiano/grobid:0.8.0
+```
+
+2. Run **ScholarVista's** CLI to process all the PDFs in a given directory and leave the results in another directory.
 
 ```bash
 # Process PDF files and save the results to a specified directory
 scholarvista --input-dir ./pdfs --output-dir ./output process-pdfs
 ```
 
-_Note: The `process-pdfs` command requires the Grobid Service to be up and running as described in [requirements](#requirements)._
-
-```bash
-# Process TEI XML files and save the results to the current directory
-scholarvista --input-dir ./xmls process-xmls
-```
-
 ### Python Modules
 
 **ScholarVista** provides a set of classes and modules to take leverage of all its functionality from your Python code.
 
-Here's a quick example of a possible use case of **ScholarVista's** modules.
+#### Example
 
 ```python
 """
