@@ -52,11 +52,22 @@ When using **_pip_** it is a good practice to use virtual environments. Check ou
 
 ### Docker Container
 
-TODO
+If you prefer running **ScholarVista** from a Docker Container, you can build the Docker Image with the following commands.
+
+```bash
+git clone https://github.com/mciccale/ScholarVista
+cd ScholarVista
+docker build -t scholarvista-app .
+```
+
+This will create an image called **scholarvista-app**.
+
  
 ## Execution Instructions
 
-### CLI Tool
+### From Source
+
+#### CLI Tool
 
 The most convenient way of using **ScholarVista** is by using its CLI.
 
@@ -77,7 +88,7 @@ Commands:
   process-xmls  Process all TEI XMLs in the given directory.
 ```
 
-#### Example
+##### Example
 
 You can execute **ScholarVista CLI** from your shell like this:
 
@@ -93,9 +104,34 @@ _Note: The `process-pdfs` command requires the Grobid Service to be up and runni
 scholarvista --input-dir ./xmls process-xmls
 ```
 
-### Python Modules
+#### Python Modules
 
 **ScholarVista** provides a set of classes and modules to take leverage of all its functionality from your Python code. To see an example, see `example.py`
+
+### Docker Container
+
+If you prefer running **ScholarVista** with Docker, you can make use of **ScholarVista** CLI directly from the Docker Image you created following [these instructions](#docker-container).
+
+1. Create a Docker Network so **ScholarVista** and **Grobid** containers can communicate between each other.
+
+```bash
+docker network create --driver bridge foo-net
+```
+
+2. Start **Grobid** service using the container and connect it to the network.
+
+```bash
+docker run --rm --init --ulimit core=0 -p 8070:8070 --network foo-net lfoppiano/grobid:0.8.0
+```
+
+3. Run **ScholarVista's** container with 2 mounted volumes for input and output directories and connect to the network.
+
+```bash
+docker run --rm -v /path/to/input/dir:/input -v /path/to/output/dir:/output --network foo-net scholarvista-app
+```
+
+*Note: The default behaviour of ScholarVista's Docker Image is processing pdf files, you can override this by providing the `process-xmls` argument after the image name.* 
+
 
 ## License
 
