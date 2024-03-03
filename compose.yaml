@@ -1,0 +1,18 @@
+services:
+  grobid:
+    image: lfoppiano/grobid:0.8.0
+    ports:
+      - "8070:8070"
+    ulimits:
+      core: 0
+    init: true
+    restart: unless-stopped
+
+  scholarvista:
+    image: scholarvista-app
+    network_mode: "host"
+    volumes:
+      - ${INPUT_DIR}:/input
+      - ${OUTPUT_DIR}:/output
+    command: [${COMMAND}]
+    restart: unless-stopped
