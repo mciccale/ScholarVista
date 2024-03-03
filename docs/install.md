@@ -1,16 +1,16 @@
 # Installation Instructions
 
-To install **ScholarVista** you have 2 of the following options:
+There are two ways of installing **ScholarVista**:
 
-1. Install de python package in your system. This option is the most complete one, because the package exposes a CLI with a series of python modules so you can use the functionality programmaticaly.
+1. **The Python package**. This option provides all the functionality of **ScholarVista**: a CLI tool and the separate Python modules.
 
-2. Build a Docker Image. This option only lets you run the CLI but there is no need for installing the package in your system.
+2. **The Docker Image**. This option only lets you run the CLI but there is no need for installing the package in your system.
 
 ## From Source
 
 ### Prerequisites
 
-**ScholarVista** needs 
+**ScholarVista** needs **Python >=3.12**.
 
 To install **ScholarVista** from source, you can clone the repository and install the package using **_pip_** in a clean environment.
 

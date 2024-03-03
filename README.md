@@ -21,6 +21,8 @@
 
 ## Requirements
 
+**Python >=3.12** is required for installing the **ScholarVista** package, not for the **Docker Image**.
+
 If you want to generate the results from a set of PDF academic papers, you must ensure that the **Grobid Service** is installed and running in your machine. See Grobid installation instrucions [here](https://grobid.readthedocs.io/en/latest/Run-Grobid/).
 
 The most straight-forward way of starting and running **Grobid Service** is by running a _Docker_ image. Make sure you have _Docker_ installed in your system.
@@ -40,15 +42,19 @@ _Note: The TEI XML files **MUST** be obtained using Grobid, as this tool is inte
 
 ### From Source
 
-To install **ScholarVista** from source, you can clone the repository and install the package using **_pip_**.
+To install **ScholarVista** from source, you can clone the repository and install the package using **_pip_**. When using **_pip_** it is a good practice to use virtual environments. Check out the official documentation on virtual envornments [here](https://docs.python.org/3/library/venv.html).
+
+#### Conda
 
 ```bash
 git clone https://github.com/mciccale/ScholarVista
 cd ScholarVista
+conda create -n scholarvista-env-3.12 python=3.12
+conda activate scholarvista-env-3.12
 pip install .
 ```
 
-When using **_pip_** it is a good practice to use virtual environments. Check out the official documentation on virtual envornments [here](https://docs.python.org/3/library/venv.html).
+_Note: You can use **PyEnv** to create a virtual environment. But since **ScholarVista** needs Python >=3.12, it is more suitable to use **Conda**, where you can select the **Python** version to use._
 
 ### Docker Container
 
