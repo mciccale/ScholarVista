@@ -98,30 +98,25 @@ if __name__ == '__main__':
 
 If you prefer running **ScholarVista** with Docker, you can make use of **ScholarVista** CLI directly from the Docker Image you created following [these instructions](#docker-container).
 
-1. Create a Docker Network so **ScholarVista** and **Grobid** containers can communicate between each other.
+1. Start **Grobid** service using the container.
 
 ```bash
-docker network create foo-network
+docker run --rm --init --ulimit core=0 -p 8070:8070 lfoppiano/grobid:0.8.0
 ```
 
-2. Start **Grobid** service using the container and connect it to the network.
+2. Run **ScholarVista's** container with 2 mounted volumes for input and output directories and connected to the host network.
+
 
 ```bash
-docker run --rm --init --ulimit core=0 -p 8070:8070 --network foo-network lfoppiano/grobid:0.8.0
-```
-
-3. Run **ScholarVista's** container with 2 mounted volumes for input and output directories.
-
-```bash
-docker run --rm -v /path/to/input/dir:/input -v /path/to/output/dir:/output scholarvista-app
+docker run -it --rm --network=host -v /path/to/input/dir:/input -v /path/to/output/dir:/output scholarvista-app
 ```
 
 *Note: The default behaviour of ScholarVista's Docker Image is processing pdf files, you can override this by providing the `process-xmls` argument after the image name.* 
 
 ### Example
 
-Here's an example where we process a set of PDFs contained in the `foo` directory and we leave the results at `bar` using the Docker Image.
+Here's an example where we process a set of PDFs contained in the `foo` directory and we leave the results at `bar` using the Docker Image. Assuming the **Grobid** service is running at `localhost:8070`. 
 
 ```bash
-docker run --rm -v foo:/input -v bar:/output scholarvista-app process-pdfs
+docker run -it --rm --network=host -v foo:/input -v bar:/output scholarvista-app process-pdfs
 ```
