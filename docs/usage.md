@@ -119,3 +119,22 @@ Here's an example where we process a set of PDFs contained in the `foo` director
 ```bash
 docker run -it --rm --network=host -v foo:/input -v bar:/output scholarvista-app process-pdfs
 ```
+
+## Docker Compose (Experimental)
+
+You can try to run **ScholarVista** through **Docker Compose**. However, this feature is still in development and may not work as expected. **ScholarVista** will be trying to connect to **Grobid** before it has started, and it will be restarted until the **Grobid** service is up and running. You can try it by:
+
+### SH-Shell like
+
+```bash
+INPUT_DIR=/path/to/input/dir OUTPUT_DIR=/path/to/output/dir COMMAND='process-pdfs' docker-compose up
+```
+
+### PowerShell
+
+```powershell
+$env:INPUT_DIR="/path/to/input/dir"; $env:OUTPUT_DIR="/path/to/output/dir"; $env:COMMAND="process-pdfs" docker-compose up
+```
+
+_Note: The **COMMAND** variable can be either `process-pdfs` or `process-xmls`. And the directories are the host machine directories where the files are extracted and left, respectively._
+
